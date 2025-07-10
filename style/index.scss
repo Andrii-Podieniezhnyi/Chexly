@@ -45,6 +45,11 @@ main{
     background: white;
     border: 0;
     border-radius: 10px;
+    padding-left: 6px;
+}
+
+.add-new-tab_field input:focus{
+    outline: none;
 }
 
 .add-new-tab_field button{
@@ -52,4 +57,10 @@ main{
     border-radius: 10px;
     border: none;
     background: lightblue;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    width: 107px;
+    justify-content: center;
 }
