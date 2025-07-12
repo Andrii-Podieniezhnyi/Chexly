@@ -64,3 +64,37 @@ main{
     width: 107px;
     justify-content: center;
 }
+
+.tabs-list_container{
+    display: flex;
+    justify-content: center;
+}
+
+.created-tabs_container{
+    display: flex;
+    width: 66%;
+}
+
+nav{
+    display: flex;
+    width: 100%;
+}
+
+nav > ul{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-new-tab-plus_container{
+    display: flex;
+    align-items: center;
+}
+
+.add-new-tab-plus{
+    border: none;
+    background-color: unset;
+}
