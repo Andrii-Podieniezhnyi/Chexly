@@ -98,3 +98,14 @@ nav > ul{
     border: none;
     background-color: unset;
 }
+
+.created-tabs-button {
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+}
+
+.created-tabs-button.active{
+    border-bottom: 3px darkblue solid;
+    border-radius: 5px;
+}
