@@ -26,12 +26,12 @@ main{
     width: 100%;
 }
 
-.add-new-tab_container{
+.add-new-tab_container, .add-new-task_container{
     display: flex;
     justify-content: center;
 }
 
-.add-new-tab_field{
+.add-new-tab_field, .add-new-task_field{
     width: 75%;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@ main{
     border-radius: 10px;
 }
 
-.add-new-tab_field input{
+.add-new-tab_field input, .add-new-task_field  input{
     width: 65%;
     height: 35px;
     background: white;
@@ -48,11 +48,11 @@ main{
     padding-left: 6px;
 }
 
-.add-new-tab_field input:focus{
+.add-new-tab_field input:focus, .add-new-task_field input:focus{
     outline: none;
 }
 
-.add-new-tab_field button{
+.add-new-tab_field button, .add-new-task_field button{
     height: 25px;
     border-radius: 10px;
     border: none;
