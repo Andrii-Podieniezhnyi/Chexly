@@ -65,7 +65,7 @@ main{
     justify-content: center;
 }
 
-.tabs-list_container{
+.tabs-list_container, .task-box_container, .add-new-tab-plus_container{
     display: flex;
     justify-content: center;
 }
@@ -87,11 +87,6 @@ nav > ul{
     width: 100%;
     display: flex;
     justify-content: space-between;
-}
-
-.add-new-tab-plus_container{
-    display: flex;
-    align-items: center;
 }
 
 .add-new-tab-plus{
@@ -116,11 +111,6 @@ nav > ul{
 
 // CHECKBOX
 
-
-.task-box_container{
-    display: flex;
-    justify-content: center;
-}
 
 .task-box_field{
     display: flex;
