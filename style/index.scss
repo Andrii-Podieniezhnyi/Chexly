@@ -20,6 +20,7 @@ body{
 header{
     text-align: center;
     color: azure;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 main{
@@ -31,48 +32,68 @@ main{
     justify-content: center;
 }
 
-.add-new-tab_field, .add-new-task_field{
-    width: 75%;
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 10px;
+
+
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
-.add-new-tab_field input, .add-new-task_field  input{
-    width: 65%;
-    height: 35px;
-    background: white;
-    border: 0;
-    border-radius: 10px;
-    padding-left: 6px;
-}
-
-.add-new-tab_field input:focus, .add-new-task_field input:focus{
+input[type="text"]:focus {
+    border-color: #ff6f61; 
     outline: none;
+    box-shadow: 0 0 10px rgba(255, 111, 97, 0.3); 
 }
 
-.add-new-tab_field button, .add-new-task_field button{
-    height: 25px;
-    border-radius: 10px;
-    border: none;
-    background: lightblue;
-    cursor: pointer;
-    font-size: 12px;
+.add-new-tab_field,
+.add-new-task_field {
     display: flex;
-    align-items: center;
-    width: 107px;
-    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 85%;
 }
+
+
+.add-new-tab-btn,
+.add-new-task-btn,
+.add-new-tab-plus {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ff6f61, #ff9a44); 
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.add-new-tab-btn:hover,
+.add-new-task-btn:hover,
+.add-new-tab-plus:hover {
+    background: linear-gradient(90deg, #e65b53, #e58836); 
+    transform: scale(1.05); 
+}
+
+
 
 .tabs-list_container, .task-box_container, .add-new-tab-plus_container{
     display: flex;
     justify-content: center;
 }
 
+.tabs-list_container{
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
 .created-tabs_container{
-    display: flex;
-    width: 66%;
+    width: 74%;
 }
 
 nav{
@@ -94,17 +115,40 @@ nav > ul{
     background-color: unset;
 }
 
+.created-tabs {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
 .created-tabs-button {
-    background-color: unset;
+    padding: 10px 20px;
     border: none;
+    border-radius: 20px; 
+    background: #e0e0e0;
+    color: #333;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
 }
 
-.created-tabs-button.active{
-    border-bottom: 3px darkblue solid;
-    border-radius: 5px;
+.created-tabs-button:hover {
+    background: #d0d0d0;
 }
 
+.created-tabs-button.active {
+    background: linear-gradient(90deg, #4a90e2, #50e3c2); 
+    color: white;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3); 
+    transform: translateY(-2px); 
+}
+
+.created-tabs-button.active:hover {
+    background: linear-gradient(90deg, #357abd, #40c9a8); 
+}
 
 
 
@@ -112,16 +156,45 @@ nav > ul{
 // CHECKBOX
 
 
-.task-box_field{
+.task-box_field {
     display: flex;
     width: 75%;
 }
 
-.task-list{
+.task-list {
     list-style: none;
-    padding: 0;
     width: 100%;
 }
+
+.active-task-field {
+    border-radius: 10px;
+    padding: 0 5px;
+    background-color: whitesmoke;
+    height: 80%;
+    overflow-y: auto;
+}    
+
+.active-task-field::-webkit-scrollbar {
+    width: 0;
+    background: transparent; 
+}
+
+.active-task-field::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+.active-task-field::-webkit-scrollbar-thumb {
+    background: transparent; 
+}
+
+.active-task-field {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent; 
+}
+
+
+
+    
 
 .task-item {
   display: flex;

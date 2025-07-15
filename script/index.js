@@ -20,7 +20,6 @@ const addNewTaskBtn = document.querySelector('.add-new-task-btn');
 const taskList = document.querySelector('.task-list');
 
 
-
 addNewTaskBtn.addEventListener('click', () => {
     newTaskText =  newTaskInput.value.trim();
 
@@ -35,22 +34,31 @@ addNewTaskBtn.addEventListener('click', () => {
     const newLi = document.createElement('li');
     newLi.className = 'task-item';
 
-
+    
     newLi.innerHTML = `
         <input type="checkbox" id = "${taskId}" class="task-checkbox">
         <label for="${taskId}" class="task-label">"${newTaskText}"</label>
         <button class="task-delete">🗑️</button>
     `
-
+    
     taskList.appendChild(newLi);
+    taskList.classList.add('active-task-field');
+
 
     newTaskInput.value = '';
+
 
 
     const delBtn = newLi.querySelector('.task-delete');
 
         delBtn.addEventListener('click', () => {
             newLi.remove();
+
+            
+            if (taskList.firstChild === null) {
+                taskList.classList.remove('active-task-field');
+            }
+
         })
 
 })
