@@ -1,15 +1,54 @@
-const createdTabsBtns = document.querySelectorAll('.created-tabs-button');
+// add and delete category tab
 
-console.log(createdTabsBtns);
+const newCategoryTextInput = document.getElementById('add-new-category-tab');
+const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
+const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
 
-createdTabsBtns.forEach(function (btn) {
+
+addNewCategoryTabBtn.addEventListener('click', () => {
+    categoryName = newCategoryTextInput.value.trim();
+    
+    if (categoryName == '') {
+        alert('Введіть назву вкладки категорії!');
+
+        return;
+    }
+
+    const newCategoryLi = document.createElement('li');
+    createdCategoryTabsList.appendChild(newCategoryLi);
+    newCategoryLi.innerHTML = `
+       <li><button class="created-category-tabs-button">${categoryName}</button></li>
+    ` 
+
+    newCategoryTextInput.value = '';
+
+
+    const createdCategoryTab = newCategoryLi.querySelector('.created-category-tabs-button');
+
+    createdCategoryTab.addEventListener('click', () => {
+        createdCategoryTab.classList.toggle('active');
+    })
+    
+})
+
+
+
+
+ // style for active category tab
+    
+const createdCategoryTabsBtns = document.querySelectorAll('.created-category-tabs-button');
+
+createdCategoryTabsBtns.forEach(function (btn) {
     btn.addEventListener('click', () => {
-        console.log('+');
-
-        createdTabsBtns.forEach(btn => btn.classList.remove('active'));
+    
+        createdCategoryTabsBtns.forEach(btn => btn.classList.remove('active'));
         btn.classList.add('active');
     })
 })
+
+
+
+
 
 
 
@@ -37,7 +76,7 @@ addNewTaskBtn.addEventListener('click', () => {
     
     newLi.innerHTML = `
         <input type="checkbox" id = "${taskId}" class="task-checkbox">
-        <label for="${taskId}" class="task-label">"${newTaskText}"</label>
+        <label for="${taskId}" class="task-label">${newTaskText}</label>
         <button class="task-delete">🗑️</button>
     `
     

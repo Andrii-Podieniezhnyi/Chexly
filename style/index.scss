@@ -59,7 +59,7 @@ input[type="text"]:focus {
 }
 
 
-.add-new-tab-btn,
+.add-new-category-tab-btn,
 .add-new-task-btn,
 .add-new-tab-plus {
     padding: 5px 10px;
@@ -73,7 +73,7 @@ input[type="text"]:focus {
     font-size: 14px;
 }
 
-.add-new-tab-btn:hover,
+.add-new-category-tab-btn:hover,
 .add-new-task-btn:hover,
 .add-new-tab-plus:hover {
     background: linear-gradient(90deg, #e65b53, #e58836); 
@@ -82,17 +82,17 @@ input[type="text"]:focus {
 
 
 
-.tabs-list_container, .task-box_container, .add-new-tab-plus_container{
+.category-tabs-list_container, .task-box_container, .add-new-tab-plus_container{
     display: flex;
     justify-content: center;
 }
 
-.tabs-list_container{
+.category-tabs-list_container{
     gap: 12px;
     margin-bottom: 20px;
 }
 
-.created-tabs_container{
+.created-category-tabs_container{
     width: 74%;
 }
 
@@ -107,7 +107,6 @@ nav > ul{
     padding: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
 .add-new-tab-plus{
@@ -115,7 +114,7 @@ nav > ul{
     background-color: unset;
 }
 
-.created-tabs {
+.created-category-tabs-list {
     display: flex;
     gap: 10px;
     list-style: none;
@@ -123,7 +122,7 @@ nav > ul{
     margin-bottom: 20px;
 }
 
-.created-tabs-button {
+.created-category-tabs-button {
     padding: 10px 20px;
     border: none;
     border-radius: 20px; 
@@ -135,18 +134,18 @@ nav > ul{
     font-size: 14px;
 }
 
-.created-tabs-button:hover {
+.created-category-tabs-button:hover {
     background: #d0d0d0;
 }
 
-.created-tabs-button.active {
+.created-category-tabs-button.active {
     background: linear-gradient(90deg, #4a90e2, #50e3c2); 
     color: white;
     box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3); 
     transform: translateY(-2px); 
 }
 
-.created-tabs-button.active:hover {
+.created-category-tabs-button.active:hover {
     background: linear-gradient(90deg, #357abd, #40c9a8); 
 }
 
@@ -158,7 +157,7 @@ nav > ul{
 
 .task-box_field {
     display: flex;
-    width: 75%;
+    width: 85%;
 }
 
 .task-list {
