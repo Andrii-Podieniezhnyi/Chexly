@@ -9,7 +9,7 @@ body{
 
 .main-container{
     background: #BFD8FF;
-    min-width: 30%;
+    width: 30%;
     height: 75%;
     border-radius: 15px;
     display: flex;
@@ -81,8 +81,12 @@ input[type="text"]:focus {
 }
 
 
+.category-tabs-list_container{
+    display: none;
+    justify-content: center;
+}
 
-.category-tabs-list_container, .task-box_container, .add-new-tab-plus_container{
+.task-box_container, .add-new-tab-plus_container{
     display: flex;
     justify-content: center;
 }
@@ -93,19 +97,28 @@ input[type="text"]:focus {
 }
 
 .created-category-tabs_container{
-    width: 74%;
+    width: 85%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.created-category-tabs_container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
 }
 
 nav{
     display: flex;
-    width: 100%;
+   // width: 100%;
 }
 
 nav > ul{
     display: flex;
     list-style: none;
     padding: 0;
-    width: 100%;
+  //  width: 100%;
     display: flex;
 }
 

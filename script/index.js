@@ -3,7 +3,9 @@
 const newCategoryTextInput = document.getElementById('add-new-category-tab');
 const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
 const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
-
+const categoryTabsListContainer = document.querySelector('.category-tabs-list_container');
+    console.log(categoryTabsListContainer);
+    
 
 addNewCategoryTabBtn.addEventListener('click', () => {
     categoryName = newCategoryTextInput.value.trim();
@@ -17,10 +19,13 @@ addNewCategoryTabBtn.addEventListener('click', () => {
     const newCategoryLi = document.createElement('li');
     createdCategoryTabsList.appendChild(newCategoryLi);
     newCategoryLi.innerHTML = `
-       <li><button class="created-category-tabs-button">${categoryName}</button></li>
+       <button class="created-category-tabs-button">${categoryName}</button>
     ` 
 
     newCategoryTextInput.value = '';
+
+
+    categoryTabsListContainer.style.display = 'flex';
 
 
     const createdCategoryTab = newCategoryLi.querySelector('.created-category-tabs-button');
@@ -30,23 +35,6 @@ addNewCategoryTabBtn.addEventListener('click', () => {
     })
     
 })
-
-
-
-
- // style for active category tab
-    
-const createdCategoryTabsBtns = document.querySelectorAll('.created-category-tabs-button');
-
-createdCategoryTabsBtns.forEach(function (btn) {
-    btn.addEventListener('click', () => {
-    
-        createdCategoryTabsBtns.forEach(btn => btn.classList.remove('active'));
-        btn.classList.add('active');
-    })
-})
-
-
 
 
 
