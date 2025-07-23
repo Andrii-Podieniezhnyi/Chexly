@@ -106,19 +106,18 @@ input[type="text"]:focus {
 }
 
 .created-category-tabs_container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none;
 }
 
 nav{
     display: flex;
-   // width: 100%;
+    height: 50px;
 }
 
 nav > ul{
     display: flex;
     list-style: none;
     padding: 0;
-  //  width: 100%;
     display: flex;
 }
 
@@ -135,33 +134,74 @@ nav > ul{
     margin-bottom: 20px;
 }
 
+.created-category-tabs-list {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+
+.category-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
 .created-category-tabs-button {
-    padding: 10px 20px;
+    padding: 5px 12px;
     border: none;
-    border-radius: 20px; 
-    background: #e0e0e0;
-    color: #333;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ff6f61, #ff9a44); 
+    color: white;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
+    height: 33px;
 }
 
+
 .created-category-tabs-button:hover {
-    background: #d0d0d0;
+    background: linear-gradient(90deg, #e65b53, #e58836); 
+    transform: scale(1.05); 
 }
+
 
 .created-category-tabs-button.active {
     background: linear-gradient(90deg, #4a90e2, #50e3c2); 
-    color: white;
     box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3); 
     transform: translateY(-2px); 
 }
 
 .created-category-tabs-button.active:hover {
     background: linear-gradient(90deg, #357abd, #40c9a8); 
+    transform: translateY(-2px) scale(1.05);
 }
 
+
+.close-tab-button {
+    position: absolute;
+    right: -6px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: #333;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.close-tab-button:hover {
+    opacity: 1;
+}
 
 
 

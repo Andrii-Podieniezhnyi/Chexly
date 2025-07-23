@@ -8,7 +8,7 @@ const categoryTabsListContainer = document.querySelector('.category-tabs-list_co
     
 
 addNewCategoryTabBtn.addEventListener('click', () => {
-    categoryName = newCategoryTextInput.value.trim();
+    const categoryName = newCategoryTextInput.value.trim();
     
     if (categoryName == '') {
         alert('Введіть назву вкладки категорії!');
@@ -20,7 +20,9 @@ addNewCategoryTabBtn.addEventListener('click', () => {
     createdCategoryTabsList.appendChild(newCategoryLi);
     newCategoryLi.innerHTML = `
        <button class="created-category-tabs-button">${categoryName}</button>
+       <button class="close-tab-button" aria-label="Закрити вкладку">×</button>
     ` 
+    newCategoryLi.classList.add('category-tab');
 
     newCategoryTextInput.value = '';
 
