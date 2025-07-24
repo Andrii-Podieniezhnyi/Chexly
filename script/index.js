@@ -1,3 +1,17 @@
+// Loading a modal window
+
+window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        document.querySelector('.auth-modal').classList.add('show');
+    }
+})
+
+
+
+
+
 // add and delete category tab
 
 const newCategoryTextInput = document.getElementById('add-new-category-tab');
