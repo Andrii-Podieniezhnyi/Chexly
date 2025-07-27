@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.send('Chexly API working')
 })
 
-await mongoose.connect(MONGO_URI, {
+await mongoose.connect(process.env.MONGO_URI, {
 })
 .then(() => {
     console.log('MongoDb connected');
