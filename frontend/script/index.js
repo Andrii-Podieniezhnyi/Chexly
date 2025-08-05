@@ -10,6 +10,55 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+// modal window  reg & auth
+
+
+document.addEventListener('click', (event) => {
+    if (event.target.id === 'show-register') {
+        document.querySelector('.auth-modal').classList.remove('show');
+        document.getElementById('register-modal').classList.add('show');
+    }
+
+    if (event.target.id === 'show-login') {
+        document.getElementById('register-modal').classList.remove('show');
+        document.querySelector('.auth-modal').classList.add('show');
+    }
+})
+
+
+document.getElementById('register-button').addEventListener('click', async () => {
+    const username = document.getElementById('register-username').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+
+
+
+    try {
+        const res = await fetch('http://localhost:5000/api/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ email, password, username })        
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            alert('Реєстрація успішна!');
+            document.getElementById('register-modal').classList.remove('show');
+        } else {
+            alert(data.message || 'Помилка реєстрації')
+        }
+
+    } catch (error) {
+        alert('Щось пішло не так!');
+        console.error(error);
+    }
+
+})
+
+
+
+
 
 
 // add and delete category tab
