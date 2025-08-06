@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-// modal window  reg & auth
+// change modal window  auth || reg
 
 
 document.addEventListener('click', (event) => {
@@ -24,6 +24,10 @@ document.addEventListener('click', (event) => {
         document.querySelector('.auth-modal').classList.add('show');
     }
 })
+
+
+
+// modal window reg
 
 
 document.getElementById('register-button').addEventListener('click', async () => {
@@ -59,6 +63,49 @@ document.getElementById('register-button').addEventListener('click', async () =>
 
 
 
+// modal window  auth
+
+
+document.getElementById('login-btn').addEventListener('click', async () => {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    try {
+        
+        const res = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'Application/json'},
+            body: JSON.stringify({email, password})
+        })
+
+        const data = await res.json();
+        console.log('Відповідь з сервера:', data);
+        
+
+        if (res.ok) {
+            alert('Вхід успішний!');
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('username', data.user.username);
+            document.querySelector('.auth-modal').classList.remove('show');
+        } else {
+            alert(data.message || 'Помилка входу');
+        }
+
+    } catch (error) {
+        alert('Щось піщло не так!');
+        console.error(error);
+    }
+})
+
+// logout btn
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    document.querySelector('.auth-modal').classList.add('show');
+    alert('Ви вийшли з акаунту');
+})
+
 
 
 // add and delete category tab
@@ -67,7 +114,7 @@ const newCategoryTextInput = document.getElementById('add-new-category-tab');
 const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
 const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
 const categoryTabsListContainer = document.querySelector('.category-tabs-list_container');
-    console.log(categoryTabsListContainer);
+    
     
 
 addNewCategoryTabBtn.addEventListener('click', () => {
