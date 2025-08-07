@@ -356,3 +356,24 @@ nav > ul{
     color: #4a90e2;
     cursor: pointer;
 }
+
+
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 20px;
+    background: #4a6fa5;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.logout-btn:hover {
+    background: #3a5b85;
+    transform: scale(1.05);
+}
