@@ -2,6 +2,10 @@
 
 window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
+    console.log('На даний час в системі:', localStorage.username);
+    console.log('Токен входу:', token);
+    
+    
 
     if (!token) {
         document.querySelector('.auth-modal').classList.add('show');
