@@ -22,6 +22,11 @@ export const createTask = async(req, res) => {
 
         await newTask.save();
 
+        res.status(201).json({
+            message: 'Завдання створено успішно',
+            task: newTask
+        })
+
     } catch (error) {
         console.error('Помилка при створенні завдання:', error);
         res.status(500).json({message: 'Помилка при створенні завдання', error})
