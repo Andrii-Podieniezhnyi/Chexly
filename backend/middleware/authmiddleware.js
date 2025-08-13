@@ -1,0 +1,30 @@
+import jwt from 'jsonwebtoken'
+
+export const authMiddleware = (req, res, next) => {
+
+    const authHeader = req.headers['autorization'];
+
+    if(!authHeader){
+        return res.status(401).json({message: 'Немає токена авторизації'});
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({message: 'Невірний формат токена'})
+    }
+
+    try {
+        
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        req.user = {id: decoded.id};
+
+        next();
+
+    } catch (error) {
+        return res.status(401).json({message: 'Невірний або просрочений токен'})
+    }
+
+}
+
