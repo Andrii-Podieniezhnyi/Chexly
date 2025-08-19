@@ -2,7 +2,10 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
 import authRoutes from './routes/authRoutes.js' ;
+import taskRouts from './routes/taskRoutes.js';
+
 
 dotenv.config();
 
@@ -12,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(express.json());
-app.use('/api', authRoutes);
+app.use('/api', authRoutes, taskRouts);
 
 
 app.get('/', (req, res) => {
