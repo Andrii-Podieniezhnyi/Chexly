@@ -1,5 +1,8 @@
 import Tab from "../models/Tab";
 
+
+// створення вкладки
+
 export const createTab = async (req, res) => {
     
     try {
@@ -23,4 +26,23 @@ export const createTab = async (req, res) => {
     } catch (error) {
         res.status(500).json({message: 'Помилка створення вкладки', error});
     }
+}
+
+
+// отривання вкладок користувача
+
+export const getTabs = async (req, res) => {
+
+    try {
+    
+        const userId = req.user.id;
+
+        const tabs = await Tab.find({userId});
+
+        res.status(200).json({tabs});
+
+    } catch (error) {
+        res.status(500).json({ message: 'Помилка при отриманні вкладок', error: message.error})
+    }
+    
 }
