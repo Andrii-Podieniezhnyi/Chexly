@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import authRoutes from './routes/authRoutes.js' ;
 import taskRouts from './routes/taskRoutes.js';
+import tabRoutes from './routes/tabRoutes.js';
 
 
 dotenv.config();
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(express.json());
-app.use('/api', authRoutes, taskRouts);
+app.use('/api', authRoutes, taskRouts, tabRoutes);
 
 
 app.get('/', (req, res) => {
