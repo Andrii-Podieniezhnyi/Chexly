@@ -1,5 +1,9 @@
 import Tab from "../models/Tab.js";
 import Task from "../models/Task.js";
+import mongoose from "mongoose";
+
+
+// Створення завдання
 
 export const createTask = async(req, res) => {
     try {
@@ -30,5 +34,43 @@ export const createTask = async(req, res) => {
     } catch (error) {
         console.error('Помилка при створенні завдання:', error);
         res.status(500).json({message: 'Помилка при створенні завдання', error})
+    }
+}
+
+
+
+
+// Видалення завдання
+
+export const deleteTask = async (req, res) => {
+
+    try {
+        
+        const {id} = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({message: 'Некоректний ID завдання'})
+        }
+
+        const task = await Task.findById(id);
+
+        if (!task) {
+            return res.status(404).json({message: 'Завдання не знайдено'})
+        }
+
+        const tab = await Tab.findOne({_id: task.tabId, userId: req.user.id});
+
+        if(!tab) {
+            return res.status(403).json({message: 'Ви не маєте доступу для видалення цього завдання'})
+        }
+
+        await task.deleteOne();
+
+        res.status(200).json({message: 'Завдання успішно видалено'});
+
+
+    } catch (error) {
+        console.error('Помилка при видаленні завдання', error);
+        res.status(500).json({message: 'Помилка при видаленні завдання', error: error.message});
     }
 }
