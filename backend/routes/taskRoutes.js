@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTask,  deleteTask} from '../controllers/taskController.js';
+import { createTask,  deleteTask, updateTask} from '../controllers/taskController.js';
 import { getTasksByTab } from '../controllers/getTasksByTab.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
@@ -11,5 +11,7 @@ router.post('/tasks', authMiddleware, createTask);
 router.get('/tabs/:tabId/tasks', authMiddleware, getTasksByTab);
 
 router.delete('/tasks/:id', authMiddleware, deleteTask);
+
+router.put('/tasks/:id', authMiddleware, updateTask);
 
 export default router;
