@@ -82,3 +82,35 @@ export const deleteTab = async(req, res) => {
         res.status(500).json({message: 'Помилка при видаленні вкладки', error: error.message});
     }
 }
+
+
+
+// оновлення вкладки
+
+export const updateTab = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Некоректний ID вкладки' });
+        }
+
+        const tab = await Tab.findOne({ _id: id, userId: req.user.id});
+        if(!tab) {
+            return res.status(404).json({ message: 'Вкладка не знайдена або не належить користувачу' });
+        }
+
+        if (name) {
+            tab.name = name;
+        }
+
+        await tab.save();
+
+        res.status(200).json({ message: 'Вкладка успішно оновлена', tab });
+
+    } catch (error) {
+        console.error('Помилка при оновленні вкладки:', error);
+        res.status(500).json({ message: 'Помилка при оновленні вкладки', error: error.message });
+    }
+}
