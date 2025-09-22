@@ -1,5 +1,5 @@
-import Tab from "../models/Tab";
-import Task from "../models/Task";
+import Tab from "../models/Tab.js";
+import Task from "../models/Task.js";
 import mongoose from "mongoose";
 
 
