@@ -2,13 +2,15 @@
 
 window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
-    console.log('На даний час в системі:', localStorage.username);
+    const username = localStorage.getItem('username');
+
+    console.log('На даний час в системі:', username);
     console.log('Токен входу:', token);
 
     if (!token) {
         document.querySelector('.auth-modal').classList.add('show');
     } else {
-        loadTabs(); // підтягнути вкладки з сервера
+        loadTabs();
     }
 });
 
@@ -102,37 +104,44 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 
 // add and delete category tab
 
-const newCategoryTextInput = document.getElementById('add-new-category-tab');
-const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
-const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
-const categoryTabsListContainer = document.querySelector('.category-tabs-list_container');
+window.addEventListener('DOMContentLoaded', () => {
+    const newCategoryTextInput = document.getElementById('add-new-category-tab');
+    const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
+    const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
+    const categoryTabsListContainer = document.querySelector('.category-tabs-list_container');
 
-// Функція рендеру вкладки в DOM
-function renderTab(tab) {
-    const newCategoryLi = document.createElement('li');
-    newCategoryLi.classList.add('category-tab');
-    newCategoryLi.dataset.id = tab._id; // id з MongoDB
+    addNewCategoryTabBtn.addEventListener('click', () => {
+        const categoryName = newCategoryTextInput.value.trim();
 
-    newCategoryLi.innerHTML = `
-        <button class="created-category-tabs-button">${tab.name}</button>
-        <button class="close-tab-button" aria-label="Закрити вкладку">×</button>
-    `;
+        if (categoryName === '') {
+            alert('Введіть назву вкладки категорії!');
+            return;
+        }
 
-    createdCategoryTabsList.appendChild(newCategoryLi);
-    categoryTabsListContainer.style.display = 'flex';
+        const newCategoryLi = document.createElement('li');
+        newCategoryLi.classList.add('category-tab');
+        newCategoryLi.innerHTML = `
+            <button class="created-category-tabs-button">${categoryName}</button>
+            <button class="close-tab-button" aria-label="Закрити вкладку">×</button>
+        `;
 
-    // Клік по вкладці
-    const createdCategoryTab = newCategoryLi.querySelector('.created-category-tabs-button');
-    createdCategoryTab.addEventListener('click', () => {
-        createdCategoryTab.classList.toggle('active');
+        createdCategoryTabsList.appendChild(newCategoryLi);
+        categoryTabsListContainer.style.display = 'flex';
+        newCategoryTextInput.value = '';
+
+        // Клік по вкладці
+        const createdCategoryTab = newCategoryLi.querySelector('.created-category-tabs-button');
+        createdCategoryTab.addEventListener('click', () => {
+            createdCategoryTab.classList.toggle('active');
+        });
+
+        // Видалення вкладки
+        const closeBtn = newCategoryLi.querySelector('.close-tab-button');
+        closeBtn.addEventListener('click', () => {
+            newCategoryLi.remove();
+        });
     });
-
-    // Видалення вкладки (DOM, потім додамо бекенд)
-    const closeBtn = newCategoryLi.querySelector('.close-tab-button');
-    closeBtn.addEventListener('click', () => {
-        newCategoryLi.remove();
-    });
-}
+});
 
 // Завантаження вкладок з сервера
 async function loadTabs() {
@@ -143,11 +152,14 @@ async function loadTabs() {
         const res = await fetch('http://localhost:5000/api/tabs', {
             method: 'GET',
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             }
         });
 
         const data = await res.json();
+        console.log('Вкладки з сервера:', data);
+        
 
         if (!res.ok) {
             console.error('Помилка при завантаженні вкладок:', data.message);
