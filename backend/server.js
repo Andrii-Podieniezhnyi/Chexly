@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/authRoutes.js';
-import taskRouts from './routes/taskRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
 import tabRoutes from './routes/tabRoutes.js';
 
 dotenv.config();
@@ -14,18 +14,20 @@ const PORT = process.env.PORT || 5000;
 
 // Налаштування CORS
 app.use(cors({
-  origin: 'http://localhost:5500', // запуск фронту з Live Server
+  origin: '*',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Обробляємо preflight-запити (OPTIONS) для всіх маршрутів
+// Обробка preflight-запити (OPTIONS) для всіх маршрутів
 app.options('*', cors());
 
 app.use(express.json());
 
-// Підключаємо маршрути
-app.use('/api', authRoutes, taskRouts, tabRoutes);
+// Підключення маршрутів
+app.use('/api', authRoutes);
+app.use('/api', taskRoutes);
+app.use('/api', tabRoutes);
 
 app.get('/', (req, res) => {
   res.send('Chexly API working');
