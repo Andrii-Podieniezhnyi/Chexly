@@ -110,14 +110,14 @@ input[type="text"]:focus, [type="password"]:focus, [type="email"]:focus {
 
 nav{
     display: flex;
-    height: 50px;
+    height: auto;
+    padding: 10px; 
 }
 
 nav > ul{
     display: flex;
+    flex-direction: column;
     list-style: none;
-    padding: 0;
-    display: flex;
 }
 
 .add-new-tab-plus{
