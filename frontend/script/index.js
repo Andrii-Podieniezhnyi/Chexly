@@ -1,5 +1,42 @@
 // Loading a modal window
 
+const newCategoryTextInput = document.getElementById('add-new-category-tab');
+const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
+const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
+const categoryTabsListContainer = document.querySelector('.category-tabs-list_container');
+
+
+
+
+// Функція рендеру вкладки в DOM
+function renderTab(tab) {
+    const newCategoryLi = document.createElement('li');
+    newCategoryLi.classList.add('category-tab');
+    newCategoryLi.dataset.id = tab._id; // id з MongoDB
+
+    newCategoryLi.innerHTML = `
+        <button class="created-category-tabs-button">${tab.name}</button>
+        <button class="close-tab-button" aria-label="Закрити вкладку">×</button>
+    `;
+
+    createdCategoryTabsList.appendChild(newCategoryLi);
+    categoryTabsListContainer.style.display = 'flex';
+
+    // Клік по вкладці
+    const createdCategoryTab = newCategoryLi.querySelector('.created-category-tabs-button');
+    createdCategoryTab.addEventListener('click', () => {
+        createdCategoryTab.classList.toggle('active');
+    });
+
+    // Видалення вкладки (DOM, бекенд зробимо пізніше)
+    const closeBtn = newCategoryLi.querySelector('.close-tab-button');
+    closeBtn.addEventListener('click', () => {
+        newCategoryLi.remove();
+    });
+}
+
+
+
 window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
@@ -105,12 +142,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 // add and delete category tab
 
 window.addEventListener('DOMContentLoaded', () => {
-    const newCategoryTextInput = document.getElementById('add-new-category-tab');
-    const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
-    const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
-    const categoryTabsListContainer = document.querySelector('.category-tabs-list_container');
-
-    addNewCategoryTabBtn.addEventListener('click', () => {
+    addNewCategoryTabBtn.addEventListener('click', async() => {
         const categoryName = newCategoryTextInput.value.trim();
 
         if (categoryName === '') {
@@ -118,30 +150,38 @@ window.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const newCategoryLi = document.createElement('li');
-        newCategoryLi.classList.add('category-tab');
-        newCategoryLi.innerHTML = `
-            <button class="created-category-tabs-button">${categoryName}</button>
-            <button class="close-tab-button" aria-label="Закрити вкладку">×</button>
-        `;
+        const token  =  localStorage.getItem('token');
+        try {
+            
+            const res = await fetch('http://localhost:5000/api/tabs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ name: categoryName})
+            })
 
-        createdCategoryTabsList.appendChild(newCategoryLi);
-        categoryTabsListContainer.style.display = 'flex';
-        newCategoryTextInput.value = '';
+            const data = await res.json();
 
-        // Клік по вкладці
-        const createdCategoryTab = newCategoryLi.querySelector('.created-category-tabs-button');
-        createdCategoryTab.addEventListener('click', () => {
-            createdCategoryTab.classList.toggle('active');
-        });
+            if(!res.ok){
+                alert(data.message || 'Помилка додавання вкладки');
+                return;
+            }
 
-        // Видалення вкладки
-        const closeBtn = newCategoryLi.querySelector('.close-tab-button');
-        closeBtn.addEventListener('click', () => {
-            newCategoryLi.remove();
-        });
+            renderTab(data.tab);
+
+            newCategoryTextInput.value = '';
+            categoryTabsListContainer.style.display = 'flex';
+
+        } catch (error) {
+            console.error('Помилка при додаванні вкладки:', error);
+            alert('Щось пішло не так!');    
+        }
     });
 });
+
+
 
 // Завантаження вкладок з сервера
 async function loadTabs() {
@@ -170,11 +210,12 @@ async function loadTabs() {
         createdCategoryTabsList.innerHTML = '';
 
         // Малюємо вкладки
-        data.tabs.forEach(tab => renderTab(tab));
+       data.tabs.forEach(tab => renderTab(tab));
     } catch (error) {
         console.error('Помилка при завантаженні вкладок:', error);
     }
 }
+
 
 
 // add and delete task item

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 export const authMiddleware = (req, res, next) => {
 
-    const authHeader = req.headers['autorization'];
+    const authHeader = req.headers['authorization'];
 
     if(!authHeader){
         return res.status(401).json({message: 'Немає токена авторизації'});
@@ -18,7 +18,7 @@ export const authMiddleware = (req, res, next) => {
         
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.user = {id: decoded.id};
+        req.user = { id: decoded.userId };
 
         next();
 
