@@ -65,7 +65,7 @@ export const deleteTab = async(req, res) => {
             return res.status(400).json({message: 'Некоректний ID вкладки'});
         }
 
-        const tab = await Tab.finndOne({_id: id, userId: req.user.id});
+        const tab = await Tab.findOne({_id: id, userId: req.user.id});
 
         if (!tab) {
             return res.status(404).json({message: 'Вкладка не знайдена або не належить користувачу'});
