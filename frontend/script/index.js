@@ -1,5 +1,3 @@
-// Loading a modal window
-
 const newCategoryTextInput = document.getElementById('add-new-category-tab');
 const addNewCategoryTabBtn = document.querySelector('.add-new-category-tab-btn');
 const createdCategoryTabsList = document.querySelector('.created-category-tabs-list');
@@ -30,12 +28,40 @@ function renderTab(tab) {
 
     // Видалення вкладки (DOM, бекенд зробимо пізніше)
     const closeBtn = newCategoryLi.querySelector('.close-tab-button');
-    closeBtn.addEventListener('click', () => {
-        newCategoryLi.remove();
+    closeBtn.addEventListener('click', async() => {
+        
+        const token = localStorage.getItem('token');
+
+        try {
+            const res = await fetch(`http://localhost:5000/api/tabs/${tab._id}`,{
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+
+            const data = await res.json();
+
+            if(!res.ok){
+                alert(data.message || 'Помилка видалення вкладки');
+                return;
+            }
+
+            newCategoryLi.remove();
+
+            if (!createdCategoryTabsList.firstChild) {
+                categoryTabsListContainer.style.display = 'none';
+            }
+
+        } catch (error) {
+            console.error('Помилка при видаленні вкладки:', error);
+            alert('Щось пішло не так!');
+        }
     });
 }
 
 
+// заванетаження модального вікна авторизваці/реєстрації
 
 window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
