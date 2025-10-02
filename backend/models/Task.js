@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const taskSсhema = new mongoose.Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
@@ -18,6 +18,12 @@ const taskSсhema = new mongoose.Schema({
     tabId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tab',
+        required: true
+    },
+
+    userId: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: user,
         required: true
     }
 }, {timestamps: true});
