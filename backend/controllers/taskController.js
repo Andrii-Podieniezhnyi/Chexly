@@ -1,3 +1,6 @@
+import Task from '../models/Task.js';
+
+
 // створення таску
 export const createTask = async (req, res) => {
   try {

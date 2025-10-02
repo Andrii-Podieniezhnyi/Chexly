@@ -58,6 +58,18 @@ function renderTab(tab) {
             alert('Щось пішло не так!');
         }
     });
+
+
+    
+    // клік по вкладці - завантаження тасок
+
+    createdCategoryTab.addEventListener('click', () => {
+      document.querySelectorAll('.created-category-tabs-button')
+        .forEach(btn => btn.classList.remove('active'));
+
+      createdCategoryTab.classList.add('active');
+      loadTasks(tab._id);
+    });
 }
 
 
@@ -250,36 +262,119 @@ const newTaskInput = document.getElementById('new-task-input');
 const addNewTaskBtn = document.querySelector('.add-new-task-btn');
 const taskList = document.querySelector('.task-list');
 
-addNewTaskBtn.addEventListener('click', () => {
-    newTaskText = newTaskInput.value.trim();
+addNewTaskBtn.addEventListener('click', async () => {
+  const newTaskText = newTaskInput.value.trim();
+  const activeTab = document.querySelector('.created-category-tabs-button.active');
 
-    if (newTaskText == '') {
-        alert('Введіть завдання!');
-        return;
+  if (!newTaskText) {
+    alert('Введіть завдання!');
+    return;
+  }
+
+  if (!activeTab) {
+    alert('Оберіть вкладку для завдання!');
+    return;
+  }
+
+  const tabId = activeTab.closest('li').dataset.id;
+  const token = localStorage.getItem('token');
+
+  try {
+    const res = await fetch('http://localhost:5000/api/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ name: newTaskText, tabId })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || 'Помилка при додаванні завдання');
+      return;
     }
 
-    const taskId = 'task-' + Date.now();
-
-    const newLi = document.createElement('li');
-    newLi.className = 'task-item';
-
-    newLi.innerHTML = `
-        <input type="checkbox" id="${taskId}" class="task-checkbox">
-        <label for="${taskId}" class="task-label">${newTaskText}</label>
-        <button class="task-delete">🗑️</button>
-    `;
-
-    taskList.appendChild(newLi);
-    taskList.classList.add('active-task-field');
-
+    renderTask(data.task); // функцію зробимо нижче
     newTaskInput.value = '';
-
-    const delBtn = newLi.querySelector('.task-delete');
-    delBtn.addEventListener('click', () => {
-        newLi.remove();
-
-        if (taskList.firstChild === null) {
-            taskList.classList.remove('active-task-field');
-        }
-    });
+  } catch (error) {
+    console.error('Помилка при створенні завдання:', error);
+  }
 });
+
+
+
+
+
+// Функція рендеру завдання в DOM
+
+function renderTask(task) {
+  const newLi = document.createElement('li');
+  newLi.className = 'task-item';
+  newLi.dataset.id = task._id;
+
+  newLi.innerHTML = `
+    <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-checkbox">
+    <label class="task-label">${task.name}</label>
+    <button class="task-delete">🗑️</button>
+  `;
+
+  taskList.appendChild(newLi);
+  taskList.classList.add('active-task-field');
+
+  // toggle completed
+  newLi.querySelector('.task-checkbox').addEventListener('change', async (e) => {
+    const completed = e.target.checked;
+    const token = localStorage.getItem('token');
+
+    await fetch(`http://localhost:5000/api/tasks/${task._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ completed })
+    });
+  });
+
+  // delete
+  newLi.querySelector('.task-delete').addEventListener('click', async () => {
+    const token = localStorage.getItem('token');
+    await fetch(`http://localhost:5000/api/tasks/${task._id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+
+    newLi.remove();
+
+    if (!taskList.firstChild) {
+      taskList.classList.remove('active-task-field');
+    }
+  });
+}
+
+
+
+async function loadTasks(tabId) {
+  const token = localStorage.getItem('token');
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/tabs/${tabId}/tasks`, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      console.error('Помилка при завантаженні завдань:', data.message);
+      return;
+    }
+
+    taskList.innerHTML = '';
+    data.tasks.forEach(task => renderTask(task));
+  } catch (error) {
+    console.error('Помилка при завантаженні завдань:', error);
+  }
+}
+
+
