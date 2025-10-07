@@ -296,7 +296,7 @@ addNewTaskBtn.addEventListener('click', async () => {
       return;
     }
 
-    renderTask(data.task); // функцію зробимо нижче
+    renderTask(data.task); 
     newTaskInput.value = '';
   } catch (error) {
     console.error('Помилка при створенні завдання:', error);
