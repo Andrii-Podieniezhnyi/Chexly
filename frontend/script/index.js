@@ -372,6 +372,10 @@ async function loadTasks(tabId) {
 
     taskList.innerHTML = '';
     data.tasks.forEach(task => renderTask(task));
+
+    if(!taskList.firstChild){
+      taskList.classList.remove('active-task-field');
+    }
   } catch (error) {
     console.error('Помилка при завантаженні завдань:', error);
   }
