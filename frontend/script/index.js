@@ -314,9 +314,11 @@ function renderTask(task) {
   newLi.className = 'task-item';
   newLi.dataset.id = task._id;
 
+  const checkboxId = `checkbox-${task._id}`;
+
   newLi.innerHTML = `
-    <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-checkbox">
-    <label class="task-label">${task.name}</label>
+    <input type="checkbox" id="${checkboxId}" ${task.completed ? 'checked' : ''} class="task-checkbox">
+    <label class="task-label" for="${checkboxId}">${task.name}</label>
     <button class="task-delete">🗑️</button>
   `;
 
@@ -324,7 +326,8 @@ function renderTask(task) {
   taskList.classList.add('active-task-field');
 
   // toggle completed
-  newLi.querySelector('.task-checkbox').addEventListener('change', async (e) => {
+    const checkbox = newLi.querySelector('.task-checkbox');
+    checkbox.addEventListener('change', async (e) => {
     const completed = e.target.checked;
     const token = localStorage.getItem('token');
 

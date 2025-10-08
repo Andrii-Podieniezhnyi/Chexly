@@ -206,9 +206,7 @@ nav > ul{
 }
 
 
-
-// CHECKBOX
-
+/*----------- task box -----------*/
 
 .task-box_field {
     display: flex;
@@ -226,7 +224,6 @@ nav > ul{
     padding: 0 5px;
     background-color: whitesmoke;
     overflow-y: auto;
-    //max-height: 89%;
     max-height: 55vh;
 }    
 
@@ -250,35 +247,32 @@ nav > ul{
 
 
 
-    
+/*----------- task item -----------*/  
 
 .task-item {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-  gap: 10px;
-  border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    gap: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .task-checkbox {
-  display: none; 
+    display: none; 
 }
 
 .task-label {
-  position: relative;
-  padding-left: 40px;
+  display: flex;
+  gap: 10px;
   cursor: pointer;
-  overflow-wrap: anywhere;  
+  overflow-wrap: anywhere;
 }
 
-
+/* квадрат чекбокса */
 .task-label::before {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 15px;
-  transform: translateY(-50%);
+  flex-shrink: 0;
   width: 1.2rem;
   height: 1.2rem;
   border: 2px solid #333;
@@ -286,32 +280,27 @@ nav > ul{
   background: #fff;
 }
 
-
+/* галочка */
 .task-checkbox:checked + .task-label::before {
   background: #007bff;
   border-color: #007bff;
-}
-
-.task-checkbox:checked + .task-label::after {
-  content: "✔";
-  position: absolute;
-  left: 0.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 0.9rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M6.173 11.414L2.76 8l1.414-1.414L6.173 8.586l5.657-5.657L13.243 4l-7.07 7.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.8rem;
 }
 
 .task-delete {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
+    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
 }
 
 
 
-// auth modal window
+/* --------- auth modal --------- */
 
 
 .auth-modal {
